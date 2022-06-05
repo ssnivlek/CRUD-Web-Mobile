@@ -7,8 +7,8 @@
 		"node": "^14.0.0"
 	},
 	"scripts": {
-		"dev": "nodemon server-backend/server/server.js",
-		"start": "node server-backend/server/server.js",
+		"dev": "nodemon backend/server/server.js",
+		"start": "node backend/server/server.js",
 		"lint": "npx eslint . --fix",
 		"docker": "docker build -t backend-project .",
 		"fix": "eslint --ignore-path .gitignore . --fix",
