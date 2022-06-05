@@ -1,0 +1,50 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@carbon/icons-react": "10.22.0",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.6.0",
+    "axios": "^0.21.1",
+    "carbon-components": "10.25.0",
+    "carbon-components-react": "7.25.0",
+    "carbon-icons": "7.0.7",
+    "country-flag-icons": "^1.4.25",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-image-gallery": "^1.0.9",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^5.0.0",
+    "socket.io-client": "^4.0.0",
+    "styled-components": "^5.2.1",
+    "web-vitals": "^0.2.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "npx eslint . --fix"
+  },
+  "eslintConfig": {
+    "extends": []
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^7.29.0",
+    "eslint-config-ibm": "^1.15.0"
+  }
+}
