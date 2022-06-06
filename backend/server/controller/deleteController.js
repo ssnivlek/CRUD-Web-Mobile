@@ -1,8 +1,11 @@
 const { readFile } = require("../helpers/readFile.js");
 const { writeFile } = require("../helpers/writeFile.js");
+const { checkJson } = require("../helpers/checkJson.js");
 const fileProduct = "backend/server/common/data/product.json";
 
 function deleteObject(req, res) {
+	checkJson(fileProduct);
+
 	let product = req.body.product;
 	let originalProducts = readFile(fileProduct);
 

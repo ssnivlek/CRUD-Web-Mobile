@@ -19,8 +19,7 @@ app.use("", (req, res) => {
 	res.status(200).sendFile(path.join(__dirname, "../public", "index.html"));
 });
 
-
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 server.listen(port, () => {
 	console.log(`App UI available http://localhost:${port}`);
 	console.log(`Swagger UI available http://localhost:${port}/swagger/api-docs`);

@@ -1,16 +1,18 @@
 {
   "geladeira": {
-    "lote": "1234",
+    "lote": "134",
     "funcao": "gelar",
     "alocado": false,
     "validade": "02/07/2021",
-    "quantidade": 200
+    "quantidade": 200,
+    "id": "4e5bb38f-404a-462f-a61c-f8633897151f"
   },
-  "tesoura": {
-    "lote": "02901",
-    "funcao": "Cortar",
-    "alocado": false,
-    "validade": "02/08/2023",
-    "quantidade": 20
+  "garfo": {
+    "lote": "8424",
+    "funcao": "comer",
+    "alocado": true,
+    "validade": "02/07/2022",
+    "quantidade": 2011,
+    "id": "bd445f79-6b45-4bbd-b6a7-311129b0ae6d"
   }
 }
