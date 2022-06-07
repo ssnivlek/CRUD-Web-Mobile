@@ -1,18 +1,10 @@
 {
-  "geladeira": {
-    "lote": "134",
-    "funcao": "gelar",
-    "alocado": false,
-    "validade": "02/07/2021",
-    "quantidade": 200,
-    "id": "4e5bb38f-404a-462f-a61c-f8633897151f"
-  },
   "garfo": {
-    "lote": "8424",
+    "lote": "ASD21343FFK",
     "funcao": "comer",
     "alocado": true,
-    "validade": "02/07/2022",
-    "quantidade": 2011,
-    "id": "bd445f79-6b45-4bbd-b6a7-311129b0ae6d"
+    "validade": "08/06/2022",
+    "quantidade": 343435,
+    "id": "596c33f0-069b-45a1-add0-497449548783"
   }
 }
