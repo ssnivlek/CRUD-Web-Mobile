@@ -15,7 +15,7 @@ export default function DataGridDemo() {
 			field: "produto",
 			headerName: "Produto",
 			width: 150,
-			editable: editable,
+			editable: false,
 		},
 		{
 			field: "lote",
@@ -47,7 +47,7 @@ export default function DataGridDemo() {
 			field: "validade",
 			headerName: "Validade",
 			type: "date",
-			width: 150,
+			width: 200,
 			editable: editable,
 		},
 		{
@@ -79,6 +79,19 @@ export default function DataGridDemo() {
 		});
 	}
 
+	function editItem(e) {
+		rows.map(async (row) => {
+			if (row.id === e.id) {
+				await api.put("/edit", {
+					product: row.produto,
+					objects: { [e.field]: e.value },
+				});
+			} else {
+				console.log({ ...row });
+			}
+		});
+	}
+
 	function arrangeObj(obj) {
 		let originalObjs = Object.entries(obj);
 
@@ -107,6 +120,7 @@ export default function DataGridDemo() {
 				pageSize={5}
 				rowsPerPageOptions={[5]}
 				disableSelectionOnClick
+				onCellEditCommit={editItem}
 				rowHeight={50}
 				rowLength={10000}
 			/>
