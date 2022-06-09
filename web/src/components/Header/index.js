@@ -9,7 +9,7 @@ import "./index.css";
 export default function Header() {
 	return (
 		<AppBar position="static">
-			<Container maxWidth="xl" className="container">
+			<Container maxWidth="xl" class="container">
 				<Toolbar disableGutters>
 					<HexagonSharpIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
 					<Typography
@@ -20,7 +20,6 @@ export default function Header() {
 						sx={{
 							mr: 2,
 							display: { xs: "none", md: "flex" },
-							fontFamily: "monospace",
 							fontWeight: 850,
 							letterSpacing: ".1rem",
 							color: "inherit",
