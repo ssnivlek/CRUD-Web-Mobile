@@ -4,9 +4,6 @@ import {
 	IonPage,
 	IonTitle,
 	IonToolbar,
-	IonCol,
-	IonRow,
-	IonGrid,
 	IonButton,
 	IonBadge,
 	IonItem,
@@ -15,43 +12,13 @@ import {
 	IonLabel,
 	IonList,
 	IonListHeader,
-	IonItemDivider,
-	IonNote,
 } from "@ionic/react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App1.css";
 
-const objects = {
-	"Vic Vaporub": {
-		lote: "2DFS324",
-		funcao: "Cheirinho bom",
-		quantidade: "3000",
-		alocado: true,
-		validade: "17/06/2022",
-		id: "5cb6ee7b-5f1b-4f7a-83c8-44896f339b19",
-	},
-	"Coristina D": {
-		lote: "C23423",
-		funcao: "Tira dor, desentope e revigora",
-		quantidade: "32",
-		alocado: false,
-		validade: "01/01/2021",
-		id: "1874295f-6703-4d79-81a8-a1f25cfba56f",
-	},
-	Melatonina: {
-		lote: "32ZADD678",
-		funcao: "dormir",
-		quantidade: "2",
-		alocado: true,
-		validade: "11/04/2022",
-		id: "e128b369-925f-4e38-8cbc-d843859c69b9",
-	},
-};
-
 const App1: React.FC = () => {
 	const [items, setItems] = useState<any[]>([]);
-
 	const [names, setNames] = useState<any[]>([]);
 	const [update, setUpdate] = useState<boolean>(false);
 
@@ -95,8 +62,6 @@ const App1: React.FC = () => {
 	}
 
 	useEffect(() => {
-		setItems([]);
-		setNames([]);
 		sendGetRequest();
 		setUpdate(true);
 	}, [update]);
@@ -159,7 +124,6 @@ const App1: React.FC = () => {
 						</IonAccordion>
 					))}
 				</IonAccordionGroup>
-
 				<IonButton onClick={() => setUpdate(false)}>Recarregar</IonButton>
 				<IonHeader collapse="condense">
 					<IonToolbar>

@@ -11,7 +11,7 @@
     "lote": "C23423",
     "funcao": "Tira dor, desentope e revigora",
     "quantidade": "32",
-    "alocado": true,
+    "alocado": false,
     "validade": "01/01/2021",
     "id": "1874295f-6703-4d79-81a8-a1f25cfba56f"
   },
@@ -19,7 +19,7 @@
     "lote": "32ZADD678",
     "funcao": "dormir",
     "quantidade": "2",
-    "alocado": true,
+    "alocado": false,
     "validade": "11/04/2022",
     "id": "e128b369-925f-4e38-8cbc-d843859c69b9"
   }
