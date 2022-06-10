@@ -26,6 +26,7 @@ function editObject(req, res) {
 	writeFile(fileProduct, originalProducts);
 
 	let updatedProducts = readFile(fileProduct);
+	console.log(`Product ${product} Edited`);
 	res.send(updatedProducts);
 }
 

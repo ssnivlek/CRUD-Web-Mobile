@@ -1,10 +1,26 @@
 {
-  "garfo": {
-    "lote": "ASD21343FFK",
-    "funcao": "comer",
+  "Vic Vaporub": {
+    "lote": "2DFS324",
+    "funcao": "Cheirinho bom",
+    "quantidade": "3000",
     "alocado": true,
-    "validade": "08/06/2022",
-    "quantidade": 343435,
-    "id": "596c33f0-069b-45a1-add0-497449548783"
+    "validade": "17/06/2022",
+    "id": "5cb6ee7b-5f1b-4f7a-83c8-44896f339b19"
+  },
+  "Coristina D": {
+    "lote": "C23423",
+    "funcao": "Tira dor, desentope e revigora",
+    "quantidade": "32",
+    "alocado": true,
+    "validade": "01/01/2021",
+    "id": "1874295f-6703-4d79-81a8-a1f25cfba56f"
+  },
+  "Melatonina": {
+    "lote": "32ZADD678",
+    "funcao": "dormir",
+    "quantidade": "2",
+    "alocado": true,
+    "validade": "11/04/2022",
+    "id": "e128b369-925f-4e38-8cbc-d843859c69b9"
   }
 }

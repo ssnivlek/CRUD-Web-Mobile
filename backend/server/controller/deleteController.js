@@ -14,6 +14,8 @@ function deleteObject(req, res) {
 	writeFile(fileProduct, originalProducts);
 
 	let updatedProducts = readFile(fileProduct);
+
+	console.log(`Product ${product} Deleted`);
 	res.send(updatedProducts);
 }
 
