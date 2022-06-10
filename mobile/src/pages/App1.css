@@ -1,0 +1,16 @@
+strong {
+	font-size: 20px;
+	color: gray;
+}
+
+.new-background-color {
+	--background: #3880ff;
+}
+
+#title {
+	color: black;
+}
+
+#product-title {
+	color: black;
+}

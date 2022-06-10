@@ -1,6 +1,25 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCol, IonRow, IonGrid } from "@ionic/react";
+import {
+	IonContent,
+	IonHeader,
+	IonPage,
+	IonTitle,
+	IonToolbar,
+	IonCol,
+	IonRow,
+	IonGrid,
+	IonButton,
+	IonBadge,
+	IonItem,
+	IonAccordionGroup,
+	IonAccordion,
+	IonLabel,
+	IonList,
+	IonListHeader,
+	IonItemDivider,
+	IonNote,
+} from "@ionic/react";
 import React, { useState, useEffect } from "react";
-import { Namespace } from "socket.io";
+import axios from "axios";
 import "./App1.css";
 
 const objects = {
@@ -31,93 +50,120 @@ const objects = {
 };
 
 const App1: React.FC = () => {
-	let rows: any[] = [];
-	let name: any[] = [];
+	const [items, setItems] = useState<any[]>([]);
 
-	function arrangeObj() {
+	const [names, setNames] = useState<any[]>([]);
+	const [update, setUpdate] = useState<boolean>(false);
+
+	const sendGetRequest = () => {
+		return axios({
+			url: "http://localhost:5000/list",
+			method: "get",
+		}).then((response) => {
+			arrangeObj(response.data);
+		});
+	};
+
+	const diffDate = (date: any) => {
+		let dateInitial: any = new Date();
+
+		let [day, month, year] = date.split("/");
+		let dateFinal: any = new Date(+year, month - 1, +day);
+
+		let difference: number = dateInitial - dateFinal;
+
+		let daysDifference = Math.floor(difference / (24 * 3600 * 1000));
+
+		return daysDifference;
+	};
+
+	function arrangeObj(objects: any) {
 		let originalObjs = Object.entries(objects);
+		let row: any[] = [];
+		let name: any[] = [];
 
 		originalObjs.map(([key, value]) => {
+			row.push(value);
 			name.push(key);
-			rows.push(value);
 		});
+
+		setItems(row);
+		setNames(name);
+
+		row = [];
+		name = [];
 	}
+
+	useEffect(() => {
+		setItems([]);
+		setNames([]);
+		sendGetRequest();
+		setUpdate(true);
+	}, [update]);
 
 	return (
 		<IonPage>
 			<IonHeader>
-				<IonToolbar>
-					<IonTitle>Gerente App</IonTitle>
+				<IonToolbar class="new-background-color">
+					<IonTitle>
+						<strong id="title">Gerente App</strong>
+					</IonTitle>
 				</IonToolbar>
 			</IonHeader>
 			<IonContent fullscreen>
-				{arrangeObj()}
-				<IonGrid>
-					<IonRow className="ion-align-items-baseline ion-no-padding ion-no-margin">
-						<IonCol>
-							<strong>Produto:</strong>
-						</IonCol>
+				<IonAccordionGroup>
+					<IonListHeader>
+						<strong id="product-title">Produtos:</strong>
+					</IonListHeader>
+					{names.map((value, index) => (
+						<IonAccordion value="colors">
+							<IonItem slot="header">
+								<IonLabel>
+									<strong>{value}</strong>
+								</IonLabel>
+							</IonItem>
+							<IonList slot="content">
+								<IonItem>
+									<IonLabel>
+										<strong>Lote: </strong> {items[index].lote}
+									</IonLabel>
+								</IonItem>
+								<IonItem>
+									<IonLabel>
+										<strong>Função: </strong> {items[index].funcao}
+									</IonLabel>
+								</IonItem>
+								<IonItem>
+									<IonLabel>
+										<strong>Quantidade: </strong> {items[index].quantidade}
+									</IonLabel>
+								</IonItem>
+								<IonItem>
+									<IonLabel>
+										<strong>Alocado:</strong> {items[index].alocado == true ? <>✓</> : <>✖</>}
+									</IonLabel>
+								</IonItem>
+								<IonItem>
+									<IonLabel>
+										<strong>Validade:</strong> {items[index].validade}
+										<br></br>
+										<br></br>
+										{diffDate(items[index].validade) > 7 && <IonBadge color="danger">Vencido</IonBadge>}
+										{diffDate(items[index].validade) <= 7 && <IonBadge color="primary">Válido</IonBadge>}
+										{diffDate(items[index].validade) == -7 && (
+											<IonBadge color="warning">Próximo ao Vencimento</IonBadge>
+										)}
+									</IonLabel>
+								</IonItem>
+							</IonList>
+						</IonAccordion>
+					))}
+				</IonAccordionGroup>
 
-						{name.map((item) => (
-							<IonCol>{item}</IonCol>
-						))}
-					</IonRow>
-				</IonGrid>
-				<IonGrid>
-					<IonRow className="ion-align-items-baseline ion-no-padding ion-no-margin">
-						<IonCol>
-							<strong>Lote:</strong>
-						</IonCol>
-						{rows.map((item) => (
-							<IonCol>{item.lote}</IonCol>
-						))}
-					</IonRow>
-				</IonGrid>
-				<IonGrid>
-					<IonRow className="ion-align-items-baseline ion-no-padding ion-no-margin">
-						<IonCol>
-							<strong>Função</strong>
-						</IonCol>
-						{rows.map((item) => (
-							<IonCol>{item.funcao}</IonCol>
-						))}
-					</IonRow>
-				</IonGrid>
-				<IonGrid>
-					<IonRow className="ion-align-items-baseline ion-no-padding ion-no-margin">
-						<IonCol>
-							<strong>Quantidade</strong>
-						</IonCol>
-						{rows.map((item) => (
-							<IonCol>{item.quantidade}</IonCol>
-						))}
-					</IonRow>
-				</IonGrid>
-				<IonGrid>
-					<IonRow className="ion-align-items-baseline ion-no-padding ion-no-margin">
-						<IonCol>
-							<strong>Alocado</strong>
-						</IonCol>
-
-						{rows.map((item) => (
-							<IonCol>{item.alocado == true ? <>✓</> : <>✖</>}</IonCol>
-						))}
-					</IonRow>
-				</IonGrid>
-				<IonGrid>
-					<IonRow className="ion-align-items-baseline ion-no-padding ion-no-margin">
-						<IonCol>
-							<strong>Validade</strong>
-						</IonCol>
-
-						{rows.map((item) => (
-							<IonCol>{item.validade}</IonCol>
-						))}
-					</IonRow>
-				</IonGrid>
+				<IonButton onClick={() => setUpdate(false)}>Recarregar</IonButton>
 				<IonHeader collapse="condense">
 					<IonToolbar>
-						<IonTitle size="large">App</IonTitle>
+						<IonTitle size="large">Gerente App</IonTitle>
 					</IonToolbar>
 				</IonHeader>
 			</IonContent>

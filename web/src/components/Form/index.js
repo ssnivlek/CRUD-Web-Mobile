@@ -200,7 +200,7 @@ export default function Form() {
 	useEffect(() => {
 		setTimeout(() => {
 			setRender(true);
-		}, 500);
+		}, 1000);
 	}, [render]);
 
 	return (
