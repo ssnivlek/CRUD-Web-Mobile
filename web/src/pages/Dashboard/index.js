@@ -7,7 +7,7 @@ export default function Dashboard() {
 	return (
 		<div id="content">
 			<Header />
-			<Data />
+			{/* <Data /> */}
 			<Form />
 		</div>
 	);

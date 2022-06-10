@@ -1,39 +1,39 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import CheckIcon from "@mui/icons-material/Check";
+import DoneAllSharpIcon from "@mui/icons-material/DoneAllSharp";
 import api from "../../services/api";
 
 export default function DataGridDemo() {
-	const [rows, setRows] = React.useState([]);
-	const [editable, setEditable] = React.useState(false);
-	const [callEffect, setCallEffect] = React.useState(false);
+	const [rows, setRows] = useState([]);
+	const [editable, setEditable] = useState(false);
+	const [callEffect, setCallEffect] = useState(false);
 
 	const columns = [
 		{
 			field: "produto",
 			headerName: "Produto",
-			width: 150,
+			width: 250,
 			editable: false,
 		},
 		{
 			field: "lote",
 			headerName: "Lote",
-			width: 150,
+			width: 300,
 			editable: editable,
 		},
 		{
 			field: "quantidade",
 			headerName: "Quantidade",
 			type: "number",
-			width: 150,
+			width: 300,
 			editable: editable,
 		},
 		{
 			field: "funcao",
 			headerName: "Função",
-			width: 150,
+			width: 300,
 			editable: editable,
 		},
 		{
@@ -47,17 +47,17 @@ export default function DataGridDemo() {
 			field: "validade",
 			headerName: "Validade",
 			type: "date",
-			width: 200,
+			width: 250,
 			editable: editable,
 		},
 		{
 			field: "actions",
 			headerName: "Ações",
 			type: "actions",
-			width: 150,
+			width: 300,
 			getActions: (params) => [
 				<GridActionsCellItem
-					icon={editable ? <CheckIcon /> : <EditIcon />}
+					icon={editable ? <DoneAllSharpIcon /> : <EditIcon />}
 					label="Edit"
 					onClick={() => editableChange()}
 				/>,
@@ -71,12 +71,12 @@ export default function DataGridDemo() {
 	}
 
 	function deleteItem(name) {
-		setCallEffect(false);
 		api.delete("/delete", {
 			data: {
 				product: name,
 			},
 		});
+		setCallEffect(false);
 	}
 
 	function editItem(e) {
@@ -90,6 +90,7 @@ export default function DataGridDemo() {
 				console.log({ ...row });
 			}
 		});
+		setCallEffect(false);
 	}
 
 	function arrangeObj(obj) {
@@ -104,21 +105,19 @@ export default function DataGridDemo() {
 		setRows(result);
 	}
 
-	React.useEffect(() => {
+	useEffect(() => {
 		api.get("/list").then((response) => {
 			arrangeObj(response.data);
 		});
-
 		setCallEffect(true);
 	}, [callEffect]);
 
 	return (
-		<div style={{ height: 500, width: "100%" }}>
+		<div style={{ height: 612, width: "100%" }}>
 			<DataGrid
 				rows={rows}
 				columns={columns}
-				pageSize={5}
-				rowsPerPageOptions={[5]}
+				pageSize={10}
 				disableSelectionOnClick
 				onCellEditCommit={editItem}
 				rowHeight={50}

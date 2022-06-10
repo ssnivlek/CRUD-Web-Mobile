@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -10,6 +7,8 @@ import Box from "@mui/material/Box";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Stack from "@mui/material/Stack";
+import api from "../../services/api";
+import Data from "../Data/index";
 import "./index.css";
 
 export default function Form() {
@@ -17,10 +16,11 @@ export default function Form() {
 	const [loteProduto, setLoteProduto] = useState("");
 	const [qtdProduto, setQtdProduto] = useState("");
 	const [funcProduto, setFuncProduto] = useState("");
-	const [alocProduto, setAlocProduto] = useState("");
 	const [valProduto, setValProduto] = useState("");
+	const [alocProduto, setAlocProduto] = useState(false);
 	const [showForm, setShowForm] = useState(false);
 	const [showButton, setShowButton] = useState(true);
+	const [render, setRender] = useState(false);
 
 	const mainBox = {
 		padding: "auto",
@@ -38,7 +38,8 @@ export default function Form() {
 				<Grid item xs={6}>
 					<Button
 						onClick={() => {
-							console.log("1");
+							addItem();
+							setRender(false);
 						}}
 						fullWidth
 					>
@@ -48,7 +49,9 @@ export default function Form() {
 				<Grid item xs={6}>
 					<Button
 						onClick={() => {
-							console.log("2");
+							resetFields();
+							setShowForm(false);
+							setShowForm(true);
 						}}
 						fullWidth
 					>
@@ -73,7 +76,7 @@ export default function Form() {
 	function completeForm() {
 		return (
 			<>
-				<h3 class="center">Adicione seu Item</h3>
+				<br></br>
 				<Box sx={mainBox}>
 					<Grid container rowSpacing={0} columnSpacing={columnGridSpacing} align="center" justify="center">
 						<Grid item xs={6}>
@@ -81,13 +84,14 @@ export default function Form() {
 								label="Nome"
 								required
 								onChange={(e) => {
-									setNomeProduto(e.value);
+									setNomeProduto(e.target.value);
 								}}
 								InputProps={{
 									startAdornment: <InputAdornment position="start"></InputAdornment>,
 								}}
 								placeholder="Digite o Nome do Produto"
 								fullWidth
+								value={nomeProduto}
 							/>
 						</Grid>
 						<Grid item xs={6}>
@@ -95,13 +99,14 @@ export default function Form() {
 								label="Lote"
 								required
 								onChange={(e) => {
-									setLoteProduto(e.value);
+									setLoteProduto(e.target.value);
 								}}
 								InputProps={{
 									startAdornment: <InputAdornment position="start"></InputAdornment>,
 								}}
 								placeholder="Digite o Lote do Produto"
 								fullWidth
+								value={loteProduto}
 							/>
 						</Grid>
 						<Grid item xs={6}>
@@ -110,13 +115,14 @@ export default function Form() {
 								type="number"
 								required
 								onChange={(e) => {
-									setQtdProduto(e.value);
+									setQtdProduto(e.target.value);
 								}}
 								InputProps={{
 									startAdornment: <InputAdornment position="start"></InputAdornment>,
 								}}
 								placeholder="Digite a Quantidade do Produto"
 								fullWidth
+								value={qtdProduto}
 							/>
 						</Grid>
 						<Grid item xs={6}>
@@ -124,30 +130,37 @@ export default function Form() {
 								label="Função"
 								required
 								onChange={(e) => {
-									setFuncProduto(e.value);
+									setFuncProduto(e.target.value);
 								}}
 								InputProps={{
 									startAdornment: <InputAdornment position="start"></InputAdornment>,
 								}}
 								placeholder="Digite a Função do Produto"
 								fullWidth
+								value={funcProduto}
 							/>
 						</Grid>
 						<Grid item xs={6}>
 							<Stack spacing={0}>
-								<FormControlLabel control={<Checkbox />} label="Alocado" class={"input"} />
-								<LocalizationProvider dateAdapter={AdapterDateFns}>
-									<DesktopDatePicker
-										label="Validade"
-										inputFormat="dd/MM/yyyy"
-										value={null}
-										onChange={(e) => {
-											setValProduto(e.value);
-										}}
-										renderInput={(params) => <TextField {...params} fullWidth />}
-										required
-									/>
-								</LocalizationProvider>
+								<FormControlLabel
+									control={<Checkbox checked={alocProduto} />}
+									label="Alocado"
+									class={"input"}
+									onChange={() => {
+										setAlocProduto(true);
+									}}
+								/>
+								<TextField
+									id="dateTimeFrom"
+									type="date"
+									onChange={(e) => {
+										setValProduto(e.target.value);
+									}}
+									InputLabelProps={{
+										shrink: true,
+									}}
+									value={valProduto}
+								/>
 							</Stack>
 						</Grid>
 						<Grid item xs={6}>
@@ -159,8 +172,41 @@ export default function Form() {
 		);
 	}
 
+	function resetFields() {
+		setNomeProduto("");
+		setLoteProduto("");
+		setQtdProduto("");
+		setFuncProduto("");
+		setAlocProduto(false);
+		setValProduto("");
+	}
+
+	function addItem() {
+		if (loteProduto && funcProduto && nomeProduto && qtdProduto && valProduto && nomeProduto) {
+			api.post("/add", {
+				[nomeProduto]: {
+					lote: loteProduto,
+					funcao: funcProduto,
+					quantidade: qtdProduto,
+					alocado: alocProduto,
+					validade: valProduto,
+				},
+			});
+		} else {
+			console.log("Defina os campos do produto");
+		}
+	}
+
+	useEffect(() => {
+		setTimeout(() => {
+			setRender(true);
+		}, 500);
+	}, [render]);
+
 	return (
 		<>
+			{render && <Data state={showForm} />}
+			<br></br>
 			{showButton && (
 				<Button
 					onClick={() => {
