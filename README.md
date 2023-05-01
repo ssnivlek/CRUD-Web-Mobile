@@ -1,4 +1,4 @@
-# CRUD Simples Web e Mobile
+# CRUD Web
 
 Nesta demo feita para a disciplina de Usabilidade, desenvolvimento web, mobile e jogos da Universidade Anhembi Morumbi fizemos um simples CRUD com UIs Web e Mobile.
 
@@ -64,19 +64,3 @@ A tela vista será a seguinte:
 ![alt text](./README-images/web.png)
 
 Nela você pode editar, deletar e criar novos produtos como a interface indica.
-
-## Mobile
-
-Frontend/UI construído em [React](https://pt-br.reactjs.org/) utilizando [NodeJS](https://nodejs.org/en/) como linguagem.
-
-Para iniciá-lo é necessário ir até a pasta web neste que você clonou e executar os seguintes comandos no seu terminal:
-
-`npm i` e então,
-`ionic serve -p 8000 --dev-logger-port 8000`
-
-Assim seu frontend será iniciado na url: http://localhost:8000/
-
-A tela vista será a seguinte:
-![alt text](./README-images/mobile.png)
-
-Nela você pode ver os produtos e os mesmos exibirão um aviso se o produto está vencido, próximo da data de validade ou ainda válido.
